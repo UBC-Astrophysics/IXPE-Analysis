@@ -35,7 +35,7 @@ function MaxLike_RVM_uniform(param::Array{Float64}, data::Matrix{Float64})
         @inbounds tanhalfC=tan((data[1,i]-param[5])*pi)
         halfAmB=atan(shalfamb,shalfapb*tanhalfC)
         halfApB=atan(chalfamb,chalfapb*tanhalfC)
-        twoang=2*((halfApB-halfAmB)+radang)
+        twoang=2*((halfAmB-halfApB)+radang)
         qloc=cos(twoang)
         uloc=sin(twoang)
         # 0.5 follows the IXPE convention 
