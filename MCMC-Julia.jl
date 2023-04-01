@@ -1,7 +1,7 @@
 using DelimitedFiles, FLoops, AdaptiveMCMC
 
 
-function maxlikerotation2_floop(param::Array{Float64}, data::Matrix{Float64})
+function MaxLike_RVM_uniform(param::Array{Float64}, data::Matrix{Float64})
     if param[1]<0 || param[1]>1 || param[2]<0 || param[2]>180 || param[3]>90 || param[3]<0 || param[4]<-90 || param[4]>90 || param[5]<0 || param[5]>1        
         return -Inf
     end
@@ -29,9 +29,15 @@ end
 
 
 foro = readdlm("photondata.txt")
+p0= [0.2, 5, 5, 45, 0.5]
+niter=2_000_000
 
-out4 = adaptive_rwm([ 6.14394854e-02, -9.78690448e-02+180,  3.56972834e-02,  4.51436712e+01,
-       -2.37867433e-01+1], x->maxlikerotation2_floop(x, foro), 2_000_000; algorithm=:am)
+print("Files loaded. Beginning MCMC\n")
+
+out4 = adaptive_rwm(p0, 
+                    x->MaxLike_RVM_uniform(x,foro)+
+		    log(abs(sin(x[2]/180*pi)))+log(abs(sin(x[3]/180*pi))),
+                    niter; b=0, algorithm=:am)
 
 allout=out4.X
 
