@@ -44,6 +44,12 @@ function MaxLike_RVM_uniform(param::Array{Float64}, data::Matrix{Float64})
     return c
 end
 
+#
+#
+# the file below is created by the data reduction scripts
+# it contains the phase, evtlist['Q']*modf, evtlist['U']*modf if a text file of three rows and nphoton columns.
+#
+#
 
 foro = readdlm("photondata.txt")
 p0= [0.2, 5, 5, 45, 0.5]
