@@ -1,3 +1,20 @@
+# you might need to install these
+#import Pkg 
+#Pkg.add("AdaptiveMCMC")
+#Pkg.add("FLoops")
+#Pkg.instantiate()
+
+#
+# N.B. This script does not save the samples as it proceeds, so be sure to ask for enough time to complete the MCMC chain
+#
+# The likelihood calculation itself is parallelized, so it runs a single long chain of 2,000,000 samples.  Usually it is sufficient 
+# to drop the first 100,000 for burn in and skip each 100.
+#
+# For example, if one did 32 parallel chains and dropped the first 100,000, one would have to do 3,200,000 samples before getting anything useful
+# and another 1,900,000 samples to get the same number as the parallel likelihood calculation, for a total of 5,100,000 samples.
+#
+#
+
 using DelimitedFiles, FLoops, AdaptiveMCMC
 
 
