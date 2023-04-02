@@ -6,3 +6,4 @@ Some analysis notebooks for IXPE data using the maximum likelihood techique outl
 * [Reduce-Generic-IXPE.ipynb](Reduce-Generic-IXPE.ipynb) : reduce the data for a generic IXPE pulsar observation including solar system and source barycentring, period from GBM and folding
 * [MCMC-Julia.jl](MCMC-Julia.jl) : Julia script to perform MCMC estimation of confidence regions on RVM parameters (uses photondata.txt produced by the reduce notebooks): photondata contains phase, 2cos(2*PA)*modf,  2*sin(2*PA)*modf for each photon (IXPE convention)
 * [Precession-HerX1-Final.ipynb](Precession-HerX1-Final.ipynb) : Python notebook to derive formulae for a precessing triaxial body and applying them to the polarization angle measurements of Her X-1
+* [PBS-Julia-Script](PBS-Julia-Script) : Run the Julia script on a PBS server with 32 CPUs
