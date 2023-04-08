@@ -1,6 +1,6 @@
 #
 #
-# process the author XLSX file to latex in this case appropriate for Astronomy and Astrophysics
+# process the author XLSX file to latex in this case appropriate for Monthly Notices of the Royal Astronomical Society
 #
 # 1) To create the author XLSX file, use the Tier 2 author list, and move the Tier one authors to the top and add additional authors where appropriate
 # 2) Be sure to add the affilliations of the additional authors to the affiliation sheet as well.
@@ -37,18 +37,18 @@ else:
 # output the authors with affiliations footnoted
     namelist=[]
     for name,affil in zip(namearray,affilarray):
-        namelist.append(r'%s \inst{\ref{in:%s}}' % (name,r'},\ref{in:'.join(affil)))
+        footnotelist=[]
+        for aa in affil:
+            footnotelist.append(str(affillist.index(aa)+1))
+        namelist.append('%s$^{%s}$' % (name,','.join(footnotelist)))
 # output the affiliations        
-    print(r'''%% list of authors
+    print(r'''%% list of authors, use \newauthor to break lines
 %% 
-\author{%s}''' % '\n\\and '.join(namelist))
-    
-
-    affilarray=[]
+\author[Short Author List]{%s''' % ',\n'.join(namelist))
+    print(r'''% list of affiliations
+\\''')
     for ii,affil in enumerate(affillist):
         resdf=affilexcel[affilexcel['Affil']==affil]
         for index, row in resdf.iterrows():
-            affilarray.append(r'%s \label{in:%s}' % (row['Affiliation'],affil))
-    print(r'''
-%% list of affiliations
-    \institute{%s}''' % '\n\\and\n'.join(affilarray))
+            print(r'$^{%d}$ %s\\' % (ii+1,row['Affiliation']))
+    print(r'}')
