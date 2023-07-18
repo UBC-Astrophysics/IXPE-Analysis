@@ -13,8 +13,6 @@
 import pandas
 import numpy as np
 from sys import argv
-from sys import argv
-
 
 finds=   [  '&',   'ü',   'ü',   'í',   'á',   'ò',   'à',   'à',  'č'   , '#',  '%', 'é']
 replaces=[r'\&',r'\"u',r'\"u',r'\'i',r'\'a',r'\`o',r'\`a',r'\`a',r'\v{c}',r'\#',r'\%', r'\'e']
