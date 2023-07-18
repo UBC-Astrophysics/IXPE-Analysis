@@ -32,17 +32,18 @@ def uprint(s):
 def setuparrays():
 # create list of authors and ordered list of affiliations
     for index, row in authorexcel.iterrows():
-        if pandas.isnull(row['Middle']):
-            namearray.append(' '.join([row['Firstname'],row['Lastname']]))
-        else:
-            namearray.append(' '.join([row['Firstname'],row['Middle'],row['Lastname']]))
-        dumarray=[]
-        for nameval in ['Affil1','Affil2','Affil3']:
-            if pandas.notnull(row[nameval]):
-                dumarray.append(row[nameval])
-                if not (row[nameval] in affillist): 
-                    affillist.append(row[nameval])        
-        affilarray.append(dumarray)
+        if not pandas.isnull(row['Lastname']):
+            if pandas.isnull(row['Middle']):
+                namearray.append(' '.join([row['Firstname'],row['Lastname']]))
+            else:
+                namearray.append(' '.join([row['Firstname'],row['Middle'],row['Lastname']]))
+            dumarray=[]
+            for nameval in ['Affil1','Affil2','Affil3']:
+                if pandas.notnull(row[nameval]):
+                    dumarray.append(row[nameval])
+                    if not (row[nameval] in affillist): 
+                        affillist.append(row[nameval])        
+            affilarray.append(dumarray)
 
 def aalist():
     setuparrays()
