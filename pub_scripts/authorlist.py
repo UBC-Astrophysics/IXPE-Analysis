@@ -21,7 +21,7 @@ def unicode_to_latex(s):
     t=s
     for f,r in zip(finds,replaces):
         t=t.replace(f,r)
-    
+    t=t.replace(r'\newauthor,',r'\newauthor')
     return t
 
 def uprint(s):
@@ -55,7 +55,6 @@ def aalist():
 %% 
 \author{%s}''' % '\n\\and '.join(namelist))
     
-
     affilarray=[]
     for ii,affil in enumerate(affillist):
         resdf=affilexcel[affilexcel['Affil']==affil]
@@ -114,14 +113,21 @@ def mnlist():
     setuparrays()
     # output the authors with affiliations footnoted
     namelist=[]
+    linelen=0
+    maxlen=120
     for name,affil in zip(namearray,affilarray):
         footnotelist=[]
         for aa in affil:
             footnotelist.append(str(affillist.index(aa)+1))
-        namelist.append('%s$^{%s}$' % (name,','.join(footnotelist)))
+        nextauthor='%s$^{%s}$' % (name,','.join(footnotelist))
+        lnext=len(nextauthor)
+        if (linelen+lnext>maxlen):
+            namelist.append(r'\newauthor')
+            linelen=0
+        namelist.append(nextauthor)
+        linelen+=lnext
 # output the affiliations        
-    uprint(r'''%% list of authors, use \newauthor to break lines
-%% 
+    uprint(r'''
 \author[Short Author List]{%s''' % ',\n'.join(namelist))
     print(r'''% list of affiliations
 \\''')
